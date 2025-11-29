@@ -1,0 +1,200 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background-color: #282c34;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.app-header h1 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.tab-navigation {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #ddd;
+  display: flex;
+  padding: 0 2rem;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 1rem 1.5rem;
+  transition: all 0.2s;
+}
+
+.tab-button:hover {
+  background-color: #e8e8e8;
+  color: #333;
+}
+
+.tab-button.active {
+  border-bottom-color: #282c34;
+  color: #282c34;
+  font-weight: 600;
+}
+
+.app-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.dashboard-container,
+.input-container,
+.output-container,
+.trends-container,
+.llm-container,
+.settings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #282c34;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+button {
+  background-color: #282c34;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #3a3f4a;
+}
+
+.mode-selector {
+  margin-bottom: 1.5rem;
+}
+
+.mode-selector label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.mode-selector select {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.filter-controls {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+}
+
+.date-filter {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-filter label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.date-filter input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.records-table {
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.metrics {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.metric {
+  background-color: #f5f5f5;
+  border-left: 4px solid #282c34;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.metric-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.settings-form {
+  max-width: 500px;
+}
