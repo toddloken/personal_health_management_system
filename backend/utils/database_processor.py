@@ -17,6 +17,8 @@ import os
 from backend.logger import logger
 from backend.utils.data_processor import DataProcessor
 
+load_dotenv()
+
 
 class DatabaseDataProcessor(DataProcessor):
     """Data processor for PostgreSQL database with full CRUD operations."""
@@ -376,21 +378,21 @@ class DatabaseDataProcessor(DataProcessor):
             return None
 
 
-
-load_dotenv()
-
-conn = psycopg2.connect(
-    host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT"),
-    dbname=os.getenv("DB_NAME"),
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD")
-)
-
-cursor = conn.cursor()
-cursor.execute("SELECT version();")
-print(cursor.fetchone()[0])
-cursor.execute("select * from personal_data")
-print(cursor.fetchall())
-cursor.close()
-conn.close()
+#
+# load_dotenv()
+#
+# conn = psycopg2.connect(
+#     host=os.getenv("DB_HOST"),
+#     port=os.getenv("DB_PORT"),
+#     dbname=os.getenv("DB_NAME"),
+#     user=os.getenv("DB_USER"),
+#     password=os.getenv("DB_PASSWORD")
+# )
+#
+# cursor = conn.cursor()
+# cursor.execute("SELECT version();")
+# print(cursor.fetchone()[0])
+# cursor.execute("select * from personal_data")
+# print(cursor.fetchall())
+# cursor.close()
+# conn.close()

@@ -6,7 +6,6 @@ Provides REST API endpoints for database queries and data retrieval.
 Location: backend/api/routes/data.py
 """
 
-from datetime import date
 from typing import Optional
 
 from fastapi import APIRouter, HTTPException
@@ -51,8 +50,8 @@ async def query_data(request: DateRangeRequest):
         if request.start_date and request.end_date:
             query = f"""
                 SELECT * FROM {request.table_name}
-                WHERE date >= %s AND date <= %s
-                ORDER BY date
+                WHERE pdate >= %s AND pdate <= %s
+                ORDER BY pdate
             """
             df = processor.execute_query(query, (request.start_date, request.end_date))
         else:

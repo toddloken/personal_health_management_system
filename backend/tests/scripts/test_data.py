@@ -32,8 +32,8 @@ class DataProcessorTests:
     """Test suite for data processor functionality."""
 
     def __init__(self):
-        self.test_results_dir = Path(r"C:\Users\rocca\PycharmProjects\PythonPHMS\tests\test_results")
-        self.test_data_dir = Path(r"C:\Users\rocca\PycharmProjects\PythonPHMS\tests\fixtures\data")
+        self.test_results_dir = Path(r"/tests/test_results")
+        self.test_data_dir = Path(r"/tests/fixtures/data")
         self.results = []
         self.test_count = 0
         self.passed_count = 0

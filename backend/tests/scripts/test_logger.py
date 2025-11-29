@@ -24,7 +24,7 @@ def run_logger_tests():
     print()
 
     # Test results directory
-    test_results_dir = Path(r"C:\Users\rocca\PycharmProjects\PythonPHMS\tests\test_results")
+    test_results_dir = Path(r"/tests/test_results")
     test_results_dir.mkdir(parents=True, exist_ok=True)
 
     # Create test result file
