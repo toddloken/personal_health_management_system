@@ -20,6 +20,19 @@ export interface ApiResponse<T> {
   success: boolean;
 }
 
+export interface DateRangeRequest {
+  end_date?: string;
+  start_date?: string;
+  table_name?: string;
+}
+
+export interface DataQueryResponse {
+  columns: string[];
+  data: Record<string, unknown>[];
+  row_count: number;
+  success: boolean;
+}
+
 export interface QueryParams extends Record<string, unknown> {
   columns?: string[];
   criteria?: Record<string, unknown>;

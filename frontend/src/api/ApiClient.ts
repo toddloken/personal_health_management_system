@@ -9,7 +9,7 @@
  * @since November 2025
  */
 
-import { ApiConfig, ApiResponse, QueryParams } from '../types/api-types';
+import {ApiConfig, ApiResponse, DataQueryResponse, DateRangeRequest, QueryParams} from '../types/api-types';
 import { DatabaseRecord } from '../types/app-types';
 
 export class ApiClient {
@@ -25,6 +25,14 @@ export class ApiClient {
 
   public async delete(tableName: string, criteria: Record<string, unknown>): Promise<ApiResponse<boolean>> {
     return this.request('/api/delete', 'POST', { table_name: tableName, criteria });
+  }
+
+  public async queryData(params: DateRangeRequest): Promise<ApiResponse<DataQueryResponse>> {
+    return this.request<DataQueryResponse>('/api/data/query', 'POST', {
+      table_name: params.table_name || 'personal_data',
+      start_date: params.start_date,
+      end_date: params.end_date,
+    });
   }
 
   public async read(params: QueryParams): Promise<ApiResponse<DatabaseRecord[]>> {

@@ -96,3 +96,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.csv
+.xls
+.xlsx
+.tsx

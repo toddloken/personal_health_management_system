@@ -45,49 +45,58 @@ export class OutputTab extends React.Component<OutputTabProps, OutputTabState> {
   }
 
   public render(): React.ReactNode {
+    const { records } = this.state;
+    const columns = records.length > 0 ? Object.keys(records[0]) : [];
+
     return (
-      <div className="output-container">
-        <h1>Daily Output</h1>
-        <div className="filter-controls">
-          <div className="date-filter">
-            <label htmlFor="startDate">Start Date:</label>
-            <input
-              type="date"
-              id="startDate"
-              value={this.state.startDate}
-              onChange={(e) => this.setState({ startDate: e.target.value })}
-            />
+        <div className="output-container">
+          <h1>Daily Output</h1>
+          <div className="filter-controls">
+            <div className="date-filter">
+              <label htmlFor="startDate">Start Date:</label>
+              <input
+                  type="date"
+                  id="startDate"
+                  value={this.state.startDate}
+                  onChange={(e) => this.setState({ startDate: e.target.value })}
+              />
+            </div>
+            <div className="date-filter">
+              <label htmlFor="endDate">End Date:</label>
+              <input
+                  type="date"
+                  id="endDate"
+                  value={this.state.endDate}
+                  onChange={(e) => this.setState({ endDate: e.target.value })}
+              />
+            </div>
+            <button onClick={this.handleFilter}>Filter</button>
           </div>
-          <div className="date-filter">
-            <label htmlFor="endDate">End Date:</label>
-            <input
-              type="date"
-              id="endDate"
-              value={this.state.endDate}
-              onChange={(e) => this.setState({ endDate: e.target.value })}
-            />
+          <div className="records-table">
+            {records.length > 0 ? (
+                <table>
+                  <thead>
+                  <tr>
+                    {columns.map((col) => (
+                        <th key={col}>{col}</th>
+                    ))}
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {records.map((record, index) => (
+                      <tr key={index}>
+                        {columns.map((col) => (
+                            <td key={col}>{String(record[col] ?? '')}</td>
+                        ))}
+                      </tr>
+                  ))}
+                  </tbody>
+                </table>
+            ) : (
+                <p>No records found for the selected date range.</p>
+            )}
           </div>
-          <button onClick={this.handleFilter}>Filter</button>
         </div>
-        <div className="records-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Data</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.records.map((record, index) => (
-                <tr key={index}>
-                  <td>{record.date}</td>
-                  <td>{JSON.stringify(record)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
     );
   }
 }
