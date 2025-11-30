@@ -37,7 +37,7 @@ export class App extends React.Component<Record<string, never>, AppState> {
 
     this.tabs = [
       { id: 'dashboard', label: 'Dashboard', component: DashboardTab, requiresProcessor: false },
-      { id: 'input', label: 'Input', component: InputTab, requiresProcessor: true },
+      { id: 'input', label: 'Input', component: InputTab, requiresProcessor: false },
       { id: 'output', label: 'Output', component: OutputTab, requiresProcessor: false },
       { id: 'trends', label: 'Basic Trends and Insights', component: TrendsTab, requiresProcessor: true },
       { id: 'llm', label: 'LLM Insights', component: LlmInsightsTab, requiresProcessor: false },
@@ -62,6 +62,10 @@ export class App extends React.Component<Record<string, never>, AppState> {
     }
 
     const Component = activeTabDef.component;
+
+    if (activeTabDef.id === 'input') {
+      return <Component apiClient={this.state.apiClient} />;
+    }
 
     if (activeTabDef.id === 'output') {
       return <Component apiClient={this.state.apiClient} />;

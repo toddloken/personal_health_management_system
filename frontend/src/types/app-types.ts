@@ -20,23 +20,23 @@ export interface AppState {
 
 export interface DatabaseRecord {
   date: string;
-  dynamic_recovery?: number;
-  heart_rate?: number;
-  heart_rate_variability?: number;
+  dynamic_recovery?: number | null;
+  heart_rate?: number | null;
+  heart_rate_variability?: number | null;
   id?: number;
-  movement?: number;
-  raw_notes?: string;
-  resting_heart_rate?: number;
-  sleep_debt?: number;
-  sleep_index?: number;
-  steps?: number;
-  stress_rhythm?: number;
-  ud_a?: number;
-  ud_mj?: number;
-  ud_narc?: number;
-  ud_sd?: number;
-  ud_t?: number;
-  vo2_max?: number;
+  movement?: number | null;
+  raw_notes?: string | null;
+  resting_heart_rate?: number | null;
+  sleep_debt?: number | null;
+  sleep_index?: number | null;
+  steps?: number | null;
+  stress_rhythm?: number | null;
+  ud_a?: number | null;
+  ud_mj?: number | null;
+  ud_narc?: number | null;
+  ud_sd?: number | null;
+  ud_t?: number | null;
+  vo2_max?: number | null;
   [key: string]: string | number | boolean | null | undefined;
 }
 
