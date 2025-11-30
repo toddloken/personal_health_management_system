@@ -54,12 +54,16 @@
 
 .dashboard-container,
 .input-container,
-.output-container,
 .trends-container,
 .llm-container,
 .settings-container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.output-container {
+  max-width: 100%;
+  margin: 0;
 }
 
 h1 {
