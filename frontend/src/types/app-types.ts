@@ -10,9 +10,11 @@
  */
 
 import { DatabaseDataProcessor } from '../services/DatabaseDataProcessor';
+import { ApiClient } from '../api/ApiClient';
 
 export interface AppState {
   activeTab: string;
+  apiClient: ApiClient;
   dataProcessor: DatabaseDataProcessor | null;
 }
 
@@ -38,7 +40,7 @@ export interface TabConfig {
 }
 
 export interface TabDefinition {
-  component: React.ComponentType<{ dataProcessor?: DatabaseDataProcessor }>;
+  component: React.ComponentType<any>;
   id: string;
   label: string;
   requiresProcessor: boolean;

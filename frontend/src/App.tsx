@@ -38,7 +38,7 @@ export class App extends React.Component<Record<string, never>, AppState> {
     this.tabs = [
       { id: 'dashboard', label: 'Dashboard', component: DashboardTab, requiresProcessor: false },
       { id: 'input', label: 'Input', component: InputTab, requiresProcessor: true },
-      { id: 'output', label: 'Output', component: OutputTab, requiresProcessor: true },
+      { id: 'output', label: 'Output', component: OutputTab, requiresProcessor: false },
       { id: 'trends', label: 'Basic Trends and Insights', component: TrendsTab, requiresProcessor: true },
       { id: 'llm', label: 'LLM Insights', component: LlmInsightsTab, requiresProcessor: false },
       { id: 'settings', label: 'Settings', component: SettingsTab, requiresProcessor: false },
@@ -46,6 +46,7 @@ export class App extends React.Component<Record<string, never>, AppState> {
 
     this.state = {
       activeTab: 'dashboard',
+      apiClient,
       dataProcessor,
     };
   }
@@ -61,6 +62,10 @@ export class App extends React.Component<Record<string, never>, AppState> {
     }
 
     const Component = activeTabDef.component;
+
+    if (activeTabDef.id === 'output') {
+      return <Component apiClient={this.state.apiClient} />;
+    }
 
     if (activeTabDef.requiresProcessor && this.state.dataProcessor) {
       return <Component dataProcessor={this.state.dataProcessor} />;

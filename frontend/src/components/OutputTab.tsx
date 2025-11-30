@@ -10,18 +10,29 @@
  */
 
 import React from 'react';
-import { OutputTabProps, OutputTabState } from '../types/output-types';
+import { ApiClient } from '../api/ApiClient';
+import { DatabaseRecord } from '../types/app-types';
+
+interface OutputTabProps {
+  apiClient: ApiClient;
+}
+
+interface OutputTabState {
+  endDate: string;
+  records: DatabaseRecord[];
+  startDate: string;
+}
 
 export class OutputTab extends React.Component<OutputTabProps, OutputTabState> {
   constructor(props: OutputTabProps) {
     super(props);
     const today = new Date().toISOString().split('T')[0];
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-    
+
     this.state = {
-      startDate: weekAgo,
       endDate: today,
       records: [],
+      startDate: weekAgo,
     };
   }
 
@@ -29,19 +40,31 @@ export class OutputTab extends React.Component<OutputTabProps, OutputTabState> {
     await this.loadData();
   }
 
+  public handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    this.setState({ endDate: e.target.value });
+  };
+
   public handleFilter = async (): Promise<void> => {
     await this.loadData();
   };
 
+  public handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    this.setState({ startDate: e.target.value });
+  };
+
   public async loadData(): Promise<void> {
-    if (!this.props.dataProcessor) {
-      return;
-    }
-    const records = await this.props.dataProcessor.getRecordsByDateRange({
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
+    const result = await this.props.apiClient.queryData({
+      table_name: 'personal_data',
+      start_date: this.state.startDate,
+      end_date: this.state.endDate,
     });
-    this.setState({ records });
+
+    if (result.success && result.data.data) {
+      this.setState({ records: result.data.data as DatabaseRecord[] });
+    } else {
+      console.error('Failed to load data:', result.error);
+      this.setState({ records: [] });
+    }
   }
 
   public render(): React.ReactNode {
@@ -58,7 +81,7 @@ export class OutputTab extends React.Component<OutputTabProps, OutputTabState> {
                   type="date"
                   id="startDate"
                   value={this.state.startDate}
-                  onChange={(e) => this.setState({ startDate: e.target.value })}
+                  onChange={this.handleStartDateChange}
               />
             </div>
             <div className="date-filter">
@@ -67,7 +90,7 @@ export class OutputTab extends React.Component<OutputTabProps, OutputTabState> {
                   type="date"
                   id="endDate"
                   value={this.state.endDate}
-                  onChange={(e) => this.setState({ endDate: e.target.value })}
+                  onChange={this.handleEndDateChange}
               />
             </div>
             <button onClick={this.handleFilter}>Filter</button>
