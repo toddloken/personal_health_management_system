@@ -256,6 +256,10 @@ class DatabaseDataProcessor(DataProcessor):
             results = cursor.fetchall()
 
             df = pd.DataFrame(results)
+
+            # Replace NaN values with None for JSON serialization
+            df = df.where(pd.notna(df), None)
+
             cursor.close()
 
             self.data = df

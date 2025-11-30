@@ -10,21 +10,8 @@
  */
 
 import React from 'react';
-import { ApiClient } from '../api/ApiClient';
 import { DatabaseRecord } from '../types/app-types';
-
-interface OutputTabProps {
-  apiClient: ApiClient;
-}
-
-interface OutputTabState {
-  endDate: string;
-  records: DatabaseRecord[];
-  selectedStatsColumns: Set<string>;
-  sortColumn: string | null;
-  sortDirection: 'asc' | 'desc';
-  startDate: string;
-}
+import {OutputTabProps, OutputTabState} from "../types/output-types.ts";
 
 export class OutputTab extends React.Component<OutputTabProps, OutputTabState> {
   constructor(props: OutputTabProps) {

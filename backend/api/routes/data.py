@@ -7,6 +7,7 @@ Location: backend/api/routes/data.py
 """
 
 from typing import Optional
+import numpy as np
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -64,6 +65,9 @@ async def query_data(request: DateRangeRequest):
                 row_count=0,
                 success=True
             )
+
+            # Replace NaN values with None for JSON serialization
+        df = df.replace({np.nan: None})
 
         records = df.to_dict('records')
 
