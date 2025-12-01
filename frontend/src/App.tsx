@@ -82,7 +82,7 @@ export class App extends React.Component<Record<string, never>, AppState> {
     return (
         <div className="app">
           <header className="app-header">
-            <h1>Todd's Personal Health Management System</h1>
+            <h1>Personal Health Management System</h1>
           </header>
           <TabNavigation
               tabs={this.tabs.map((t) => ({ id: t.id, label: t.label }))}

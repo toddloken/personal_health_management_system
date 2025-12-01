@@ -3,7 +3,7 @@ FastAPI application entry point
 
 Main application configuration and router registration.
 
-Location: backend/api/main.py
+Location: backend/api/ml_main.py
 """
 
 import sys
