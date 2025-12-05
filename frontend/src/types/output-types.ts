@@ -9,15 +9,18 @@
  * @since November 2025
  */
 
-import { DatabaseDataProcessor } from '../services/DatabaseDataProcessor';
-import { DatabaseRecord } from '../types/app-types';
+import { DatabaseRecord } from './app-types.ts';
+import {ApiClient} from "../api/ApiClient.ts";
 
 export interface OutputTabProps {
-  dataProcessor?: DatabaseDataProcessor;
+  apiClient: ApiClient;
 }
 
 export interface OutputTabState {
   endDate: string;
   records: DatabaseRecord[];
+  selectedStatsColumns: Set<string>;
+  sortColumn: string | null;
+  sortDirection: 'asc' | 'desc';
   startDate: string;
 }

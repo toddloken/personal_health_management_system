@@ -10,44 +10,49 @@
  */
 
 import { ApiClient } from '../api/ApiClient';
-import { DatabaseRecord, DateRange } from '../types/app-types';
+import { DateRangeRequest } from '../types/api-types';
+import { DatabaseRecord } from '../types/app-types';
 
 export class DatabaseDataProcessor {
   private apiClient: ApiClient;
-  private tableName: string;
+  private readonly tableName: string;
 
   constructor(apiClient: ApiClient, tableName: string = 'personal_data') {
     this.apiClient = apiClient;
     this.tableName = tableName;
   }
 
-  async createRecord(record: DatabaseRecord): Promise<boolean> {
+  public async createRecord(record: DatabaseRecord): Promise<boolean> {
     const response = await this.apiClient.create(this.tableName, record);
     return response.success;
   }
 
-  async deleteRecord(criteria: Record<string, unknown>): Promise<boolean> {
+  public async deleteRecord(criteria: Record<string, unknown>): Promise<boolean> {
     const response = await this.apiClient.delete(this.tableName, criteria);
     return response.success;
   }
 
-  async getRecordsByDateRange(dateRange: DateRange): Promise<DatabaseRecord[]> {
-    const criteria = {
-      date: {
-        gte: dateRange.startDate,
-        lte: dateRange.endDate,
-      },
+  public async getRecordsByDateRange(params: {
+    endDate: string;
+    startDate: string;
+  }): Promise<DatabaseRecord[]> {
+    const request: DateRangeRequest = {
+      end_date: params.endDate,
+      start_date: params.startDate,
+      table_name: this.tableName,
     };
 
-    const response = await this.apiClient.read({
-      table_name: this.tableName,
-      criteria,
-    });
+    const response = await this.apiClient.queryData(request);
 
-    return response.success ? response.data : [];
+    if (!response.success || !response.data) {
+      console.error('Failed to fetch records:', response.error);
+      return [];
+    }
+
+    return response.data.data as DatabaseRecord[];
   }
 
-  async readRecords(criteria?: Record<string, unknown>, limit?: number): Promise<DatabaseRecord[]> {
+  public async readRecords(criteria?: Record<string, unknown>, limit?: number): Promise<DatabaseRecord[]> {
     const response = await this.apiClient.read({
       table_name: this.tableName,
       criteria,
@@ -57,7 +62,7 @@ export class DatabaseDataProcessor {
     return response.success ? response.data : [];
   }
 
-  async updateRecord(data: DatabaseRecord, criteria: Record<string, unknown>): Promise<boolean> {
+  public async updateRecord(data: DatabaseRecord, criteria: Record<string, unknown>): Promise<boolean> {
     const response = await this.apiClient.update(this.tableName, data, criteria);
     return response.success;
   }

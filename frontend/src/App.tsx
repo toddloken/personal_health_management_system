@@ -37,8 +37,8 @@ export class App extends React.Component<Record<string, never>, AppState> {
 
     this.tabs = [
       { id: 'dashboard', label: 'Dashboard', component: DashboardTab, requiresProcessor: false },
-      { id: 'input', label: 'Input', component: InputTab, requiresProcessor: true },
-      { id: 'output', label: 'Output', component: OutputTab, requiresProcessor: true },
+      { id: 'input', label: 'Input', component: InputTab, requiresProcessor: false },
+      { id: 'output', label: 'Output', component: OutputTab, requiresProcessor: false },
       { id: 'trends', label: 'Basic Trends and Insights', component: TrendsTab, requiresProcessor: true },
       { id: 'llm', label: 'LLM Insights', component: LlmInsightsTab, requiresProcessor: false },
       { id: 'settings', label: 'Settings', component: SettingsTab, requiresProcessor: false },
@@ -46,6 +46,7 @@ export class App extends React.Component<Record<string, never>, AppState> {
 
     this.state = {
       activeTab: 'dashboard',
+      apiClient,
       dataProcessor,
     };
   }
@@ -62,6 +63,14 @@ export class App extends React.Component<Record<string, never>, AppState> {
 
     const Component = activeTabDef.component;
 
+    if (activeTabDef.id === 'input') {
+      return <Component apiClient={this.state.apiClient} />;
+    }
+
+    if (activeTabDef.id === 'output') {
+      return <Component apiClient={this.state.apiClient} />;
+    }
+
     if (activeTabDef.requiresProcessor && this.state.dataProcessor) {
       return <Component dataProcessor={this.state.dataProcessor} />;
     }
@@ -73,7 +82,7 @@ export class App extends React.Component<Record<string, never>, AppState> {
     return (
         <div className="app">
           <header className="app-header">
-            <h1>Todd's Personal Health Management System</h1>
+            <h1>Personal Health Management System</h1>
           </header>
           <TabNavigation
               tabs={this.tabs.map((t) => ({ id: t.id, label: t.label }))}
